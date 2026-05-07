@@ -1,42 +1,47 @@
-# 💊 Farmácia API
+# 💊 Farmácia Gen API
 
 <p align="center">
   <img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" />
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeORM-FE0803?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
   <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
   <img src="https://img.shields.io/badge/REST%20API-000000?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Concluído-success?style=for-the-badge" />
 </p>
 
 ---
 
 ## 📖 Sobre o Projeto
 
-O **Farmácia API** é uma aplicação backend desenvolvida com **NestJS** e **TypeScript**, focada na construção de uma API moderna, organizada e escalável.
+O **Farmácia Gen API** é uma aplicação backend desenvolvida com **NestJS**, **TypeScript** e **TypeORM**, focada no gerenciamento de produtos e categorias de uma farmácia através de uma API REST moderna, escalável e organizada.
 
-O projeto foi estruturado utilizando boas práticas de arquitetura backend, separação de responsabilidades e modularização, servindo como base sólida para sistemas de gerenciamento farmacêutico.
+O sistema foi estruturado utilizando arquitetura modular e boas práticas de desenvolvimento backend, permitindo operações completas de cadastro, consulta, atualização e remoção de dados.
 
-A aplicação utiliza o ecossistema NestJS para fornecer:
+Além disso, o projeto aplica conceitos importantes como:
 
-- Estrutura modular
-- Organização em camadas
+- Programação orientada a objetos
+- Relacionamento entre entidades
 - Injeção de dependência
-- Escalabilidade
-- Facilidade de manutenção
-- Testes automatizados
+- Persistência de dados
+- Tratamento de exceções
+- Validação de dados
 
 ---
 
 ## ✨ Funcionalidades
 
-✅ Estrutura completa com NestJS  
-✅ API REST preparada para expansão  
-✅ Arquitetura modular  
-✅ Injeção de dependência  
-✅ Inicialização automática do servidor  
-✅ Configuração pronta para testes unitários  
-✅ Configuração de lint e formatação  
-✅ Ambiente preparado para produção  
+✅ CRUD completo de categorias  
+✅ CRUD completo de produtos  
+✅ Busca de categorias por ID  
+✅ Busca de categorias por tipo  
+✅ Relacionamento entre produtos e categorias  
+✅ Tratamento de erros HTTP  
+✅ Validação de dados com class-validator  
+✅ API REST estruturada com NestJS  
+✅ Persistência de dados com TypeORM  
+✅ Arquitetura modular e escalável  
 
 ---
 
@@ -47,24 +52,27 @@ A aplicação utiliza o ecossistema NestJS para fornecer:
 | NestJS | Framework backend |
 | TypeScript | Linguagem principal |
 | Node.js | Ambiente de execução |
+| TypeORM | ORM para banco de dados |
+| MySQL | Banco de dados relacional |
+| class-validator | Validação de dados |
 | Jest | Testes automatizados |
 | ESLint | Padronização de código |
 | Prettier | Formatação automática |
-| RxJS | Programação reativa |
-| Express | Servidor HTTP interno do NestJS |
 
 ---
 
 ## 🧠 Conceitos Aplicados
 
-- Arquitetura Modular
 - REST API
+- CRUD
+- Programação Orientada a Objetos
 - Dependency Injection
+- Arquitetura Modular
+- Relacionamento OneToMany
+- Tratamento de Exceptions
+- Repository Pattern
+- Validação de Dados
 - Clean Code
-- Organização em camadas
-- Testes unitários
-- Escalabilidade backend
-- Estrutura enterprise com NestJS
 
 ---
 
@@ -73,11 +81,27 @@ A aplicação utiliza o ecossistema NestJS para fornecer:
 ```bash
 .
 ├── src/
+│   ├── categoria/
+│   │   ├── controllers/
+│   │   │   └── categoria.controller.ts
+│   │   ├── entities/
+│   │   │   └── categoria.entity.ts
+│   │   ├── services/
+│   │   │   └── categoria.service.ts
+│   │   └── categoria.module.ts
+│   │
+│   ├── produto/
+│   │   ├── controllers/
+│   │   ├── entities/
+│   │   ├── services/
+│   │   └── produto.module.ts
+│   │
 │   ├── app.controller.spec.ts
 │   ├── app.controller.ts
 │   ├── app.module.ts
 │   ├── app.service.ts
 │   └── main.ts
+│
 ├── test/
 ├── .gitignore
 ├── .prettierrc
@@ -99,6 +123,7 @@ Antes de executar o projeto, é necessário ter instalado:
 - Node.js
 - npm
 - NestJS CLI
+- MySQL
 
 ---
 
@@ -128,7 +153,13 @@ npm install
 
 ---
 
-### 4️⃣ Execute o projeto em desenvolvimento
+### 4️⃣ Configure o banco de dados
+
+Configure as credenciais do banco MySQL no projeto.
+
+---
+
+### 5️⃣ Execute a aplicação
 
 ```bash
 npm run start:dev
@@ -136,71 +167,89 @@ npm run start:dev
 
 ---
 
-### 5️⃣ Executando em produção
+## 🔗 Endpoints da API
 
-```bash
-npm run build
-npm run start:prod
-```
+### 📦 Categorias
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/categorias` | Lista todas as categorias |
+| GET | `/categorias/:id` | Busca categoria por ID |
+| GET | `/categorias/tipo/:tipo` | Busca categoria por tipo |
+| POST | `/categorias` | Cria uma categoria |
+| PUT | `/categorias` | Atualiza uma categoria |
+| DELETE | `/categorias/:id` | Remove uma categoria |
 
 ---
 
-## 💻 Exemplo de Uso
+## 💻 Exemplo de Requisição
 
-### ▶️ Requisição
+### ▶️ Criar categoria
 
 ```http
-GET /
+POST /categorias
+```
+
+### 📨 Body
+
+```json
+{
+  "tipo": "Medicamentos"
+}
 ```
 
 ### ✅ Resposta
 
 ```json
-Hello World!
+{
+  "id": 1,
+  "tipo": "Medicamentos"
+}
 ```
 
 ---
 
 ## 🛡️ Resiliência e Tratamento de Erros
 
-O projeto utiliza a estrutura do NestJS, que oferece suporte nativo para:
+O sistema implementa tratamento de exceções utilizando os recursos nativos do NestJS.
 
-### ✔️ Tratamento centralizado de exceções
+### ✔️ Categoria não encontrada
 
-O framework possui suporte a:
-
-- Exception Filters
-- HTTP Exceptions
-- Interceptors
-- Middleware
-
----
-
-### ✔️ Arquitetura escalável
-
-A separação em módulos facilita:
-
-- Manutenção
-- Expansão futura
-- Reutilização de código
+```json
+{
+  "statusCode": 404,
+  "message": "Categoria não encontrada!"
+}
+```
 
 ---
 
-### ✔️ Testabilidade
+### ✔️ Validação de dados
 
-A aplicação já está configurada com:
+O projeto utiliza:
 
-- Jest
-- Testes unitários
-- Ambiente isolado para validação
+- `class-validator`
+- Decorators de validação
+- Respostas HTTP apropriadas
+
+---
+
+### ✔️ Busca segura no banco
+
+As operações utilizam:
+
+- Repository Pattern
+- TypeORM Repository
+- Queries tipadas
+- Busca parcial utilizando `ILike`
 
 ---
 
 ## 🧪 Testes e Validação
 
-O projeto possui configuração pronta para testes automatizados utilizando Jest.
+O projeto possui configuração pronta para testes automatizados com Jest.
 
-### ▶️ Executar testes unitários
+### ▶️ Executar testes
 
 ```bash
 npm run test
@@ -208,7 +257,7 @@ npm run test
 
 ---
 
-### ▶️ Executar cobertura de testes
+### ▶️ Gerar cobertura
 
 ```bash
 npm run test:cov
@@ -220,10 +269,12 @@ npm run test:cov
 
 | Cenário | Resultado Esperado |
 |---|---|
-| Inicialização da API | Servidor online |
-| Controller principal | Retorno correto |
-| Service principal | Funcionamento validado |
-| Ambiente de testes | Execução sem falhas |
+| Cadastro de categoria | Dados persistidos |
+| Busca por ID | Retorno correto |
+| Busca inexistente | Erro 404 |
+| Atualização | Dados alterados |
+| Exclusão | Registro removido |
+| Validação de campos | Requisição bloqueada |
 
 ---
 
@@ -232,25 +283,26 @@ npm run test:cov
 Este projeto permitiu aprofundar conhecimentos em:
 
 - Desenvolvimento backend com NestJS
-- Estruturação de APIs REST
+- APIs REST com TypeScript
+- Persistência de dados com TypeORM
+- Relacionamentos entre entidades
 - Arquitetura modular
-- Dependency Injection
-- Configuração de ambiente Node.js
-- Testes automatizados com Jest
-- Padronização de código com ESLint e Prettier
+- Injeção de dependência
+- Tratamento de exceções
+- Estruturação profissional de backend
 
 ---
 
 ## 🔮 Melhorias Futuras
 
-- CRUD de produtos
-- CRUD de categorias
-- Integração com banco de dados
-- Swagger Documentation
 - Autenticação JWT
+- Swagger Documentation
 - Controle de estoque
+- Upload de imagens
 - Deploy em nuvem
 - Dockerização da aplicação
+- Sistema de usuários
+- Logs e monitoramento
 
 ---
 
